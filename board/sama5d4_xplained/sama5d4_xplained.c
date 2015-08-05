@@ -567,6 +567,13 @@ static void at91_disable_smd_clock(void)
 	pmc_disable_system_clock(AT91C_PMC_SMDCK);
 }
 
+#define LTC2953_KILL_PIN (0x01 << 19)
+
+static void ltc2953_kill_gpio_output_high(void)
+{
+	pio_set_gpio_output(CONFIG_LTC2953_KILL_PIN, 0);
+}
+
 static void SiI9022_hw_reset(void)
 {
 	pio_set_gpio_output(CONFIG_SYS_HDMI_RESET_PIN, 1);
@@ -676,6 +683,8 @@ void hw_init(void)
 #endif
 	/* Reset HDMI SiI9022 */
 	SiI9022_hw_reset();
+
+	ltc2953_kill_gpio_output_high();
 
 	/* Disable software modem device's clock */
 	at91_disable_smd_clock();

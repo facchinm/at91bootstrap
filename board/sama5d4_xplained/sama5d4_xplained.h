@@ -180,6 +180,7 @@
  * Others
  */
 #define CONFIG_SYS_HDMI_RESET_PIN	AT91C_PIN_PB(15)
+#define CONFIG_LTC2953_KILL_PIN		AT91C_PIN_PC(19)
 
 /* function */
 extern void hw_init(void);

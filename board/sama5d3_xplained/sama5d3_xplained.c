@@ -234,6 +234,13 @@ static void at91_special_pio_output_low(void)
 }
 #endif
 
+#define LTC2953_KILL_PIN (0x01 << 19)
+
+static void ltc2953_kill_gpio_output_high(void)
+{
+	pio_set_gpio_output(CONFIG_LTC2953_KILL_PIN, 1);
+}
+
 #if defined(CONFIG_PM_EXTERNAL_DEVICES)
 #if defined(CONFIG_MACB)
 #if defined(CONFIG_MAC0_PHY)
@@ -418,6 +425,8 @@ void hw_init(void)
 	/* Set GMAC & EMAC pins to output low */
 	at91_special_pio_output_low();
 #endif
+	/* set output HIGH for ltc2953 KILL gpio */
+	ltc2953_kill_gpio_output_high();
 
 	/* Disable the software modem clock */
 	at91_disable_smd_clock();
